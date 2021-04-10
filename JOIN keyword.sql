@@ -25,3 +25,36 @@ SELECT first_name, last_name, c.customer_id
 FROM customers c
 JOIN orders 
 ON o.customer_id = c.customer_id;
+-- another example
+SELECT o.product_id, name, quantity, o.unit_price
+FROM order_items o
+JOIN products p
+	ON o.product_id = p.product_id;
+-- tables can also be joined across databases
+-- to join to a table in another database just prefix the table name with its database name
+
+SELECT o.product_id, name, quantity, o.unit_price
+FROM order_items o
+JOIN sql_inventory.products p
+	ON o.product_id = p.product_id;
+    
+-- a table can also be joined to itself
+-- this is called a self join
+USE sql_hr;
+
+SELECT *
+FROM employees e
+JOIN employees m
+	ON e.reports_to = m.employee_id;
+    
+SELECT e.employee_id, e.first_name, m.first_name AS manager
+FROM employees e
+JOIN employees m
+	ON e.reports_to = m.employee_id;
+
+
+
+
+
+
+
