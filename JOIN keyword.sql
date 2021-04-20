@@ -124,6 +124,13 @@ LEFT JOIN shippers sh
 	ON o.shipper_id = sh.shipper_id
 JOIN order_statuses os
 	ON o.status = os.order_status_id; 
+    
+    -- SELF OUTER JOINS
+    -- use sql_hr;
+    SELECT e.first_name, e.job_title, e.salary, e.reports_to, m.first_name AS manager
+    FROM employees e
+    LEFT JOIN employees m
+		ON e.reports_to = m.employee_id;
 
 
 
