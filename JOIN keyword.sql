@@ -107,6 +107,7 @@ RIGHT JOIN orders o -- or RIGHT OUTER JOIN orders o(outer keyword is optional)
 	ON o.customer_id = c.customer_id;
     
 -- OUTER JOINS BETWEEN MULTIPLE TABLES
+ -- It is advisable to use aleft joins only when using outer joins to join multiple tables
 SELECT c.customer_id, c.first_name, o.order_id, sh.name AS shipper
 FROM customers c
 LEFT JOIN orders o
@@ -114,6 +115,15 @@ LEFT JOIN orders o
 LEFT JOIN shippers sh -- left joining to include all shippers including those with no data
 	ON o.shipper_id = sh.shipper_id
 ORDER BY c.customer_id;
+
+SELECT o.order_date, o.order_id, c.first_name, sh.name AS shipper, os.name AS status
+FROM customers c
+LEFT JOIN orders o
+	ON c.customer_id = o.customer_id
+LEFT JOIN shippers sh
+	ON o.shipper_id = sh.shipper_id
+JOIN order_statuses os
+	ON o.status = os.order_status_id; 
 
 
 
