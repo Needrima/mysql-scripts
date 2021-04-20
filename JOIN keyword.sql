@@ -60,6 +60,22 @@ JOIN customers c
 	ON o.customer_id = c.customer_id
 JOIN order_statuses os
 	ON o.status = os.order_status_id;
+    
+-- USE sql_invoicing;
+-- SHOW tables;
+SELECT c.name, p.payment_id, pm.name
+FROM payment_methods pm
+JOIN payments p
+	ON pm.payment_method_id = p.payment_method
+JOIN clients c
+	ON p.client_id = c.client_id;
+
+    
+    
+    
+    
+    
+    
 
 
 
