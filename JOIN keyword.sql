@@ -79,6 +79,34 @@ JOIN order_item_notes oin
     AND oi.product_id = oin.product_id;
     
 -- IMPLICIT JOIN
+-- instead of
+SELECT * 
+FROM orders o
+JOIN customers c
+	ON o.customer_id = c.customer_id;
+-- we can join implicity by
+SELECT * 
+FROM orders o, customers c
+WHERE o.customer_id = c.customer_id; 
+-- implicity join is not a good practice because forgetting the where clause might give a totally different result
+-- the explicit join forces us to explicitly state the join condition
+
+-- OUTER JOIN
+-- the query below gives the results for all customer related columns and assign null for
+-- their order cell if no there is no data
+SELECT c.customer_id, c.first_name, o.order_id
+FROM customers c
+LEFT JOIN orders o -- or LEFT OUTER JOIN orders o(outer keyword is optional)
+	ON o.customer_id = c.customer_id;
+-- the query below gives the results for all ORDER related columns and assign null for
+-- their customer cell if no there is no data
+SELECT c.customer_id, c.first_name, o.order_id
+FROM customers c
+RIGHT JOIN orders o -- or RIGHT OUTER JOIN orders o(outer keyword is optional)
+	ON o.customer_id = c.customer_id;
+    
+
+
 
 
 
