@@ -92,6 +92,7 @@ WHERE o.customer_id = c.customer_id;
 -- the explicit join forces us to explicitly state the join condition
 
 -- OUTER JOIN
+-- outer joins betweem two tables
 -- the query below gives the results for all customer related columns and assign null for
 -- their order cell if no there is no data
 SELECT c.customer_id, c.first_name, o.order_id
@@ -105,8 +106,14 @@ FROM customers c
 RIGHT JOIN orders o -- or RIGHT OUTER JOIN orders o(outer keyword is optional)
 	ON o.customer_id = c.customer_id;
     
-
-
+-- OUTER JOINS BETWEEN MULTIPLE TABLES
+SELECT c.customer_id, c.first_name, o.order_id, sh.name AS shipper
+FROM customers c
+LEFT JOIN orders o
+	ON c.customer_id = o.customer_id
+LEFT JOIN shippers sh -- left joining to include all shippers including those with no data
+	ON o.shipper_id = sh.shipper_id
+ORDER BY c.customer_id;
 
 
 
