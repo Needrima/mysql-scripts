@@ -125,12 +125,52 @@ LEFT JOIN shippers sh
 JOIN order_statuses os
 	ON o.status = os.order_status_id; 
     
-    -- SELF OUTER JOINS
-    -- use sql_hr;
-    SELECT e.first_name, e.job_title, e.salary, e.reports_to, m.first_name AS manager
-    FROM employees e
-    LEFT JOIN employees m
-		ON e.reports_to = m.employee_id;
+-- SELF OUTER JOINS
+-- USE sql_hr;
+SELECT e.first_name, e.job_title, e.salary, e.reports_to, m.first_name AS manager
+FROM employees e
+LEFT JOIN employees m
+	ON e.reports_to = m.employee_id;
+    
+-- USING keyword
+-- used when the join condition columns are exactly the same in both tables
+-- can be used with both INNER and OUTER JOIN
+SELECT o.order_id, c.first_name, s.name AS shipper
+FROM customers c
+JOIN orders o
+	-- ON c.customer_id = o.customer_id
+    USING (customer_id)
+LEFT JOIN shippers s
+	-- ON c.shipper_id = s.shipper_id
+    USING (shipper_id);
+-- to do a composite join, specify all the join coditions seperated by a comma
+SELECT *
+FROM order_item oi
+LEFT JOIN order_item_notes oin	
+	USING(order_id, product_id);
+    
+-- NATURAL JOINS
+-- NATURAL JOIN searches and merge the all the common tables automatically
+-- using NATURAL JOIN is discouraged
+ SELECT c.first_name, o.order_id
+ FROM customers c
+ NATURAL JOIN orders o;
+ 
+ -- CROSS JOINS
+ -- Used to match everthing from the first table to everything from the second table
+ -- So there is no ON condition
+ -- EXPLICIT CROSS JOIN
+ -- the next two queries will give the same result
+ SELECT c.first_name AS customer, p.name AS product
+ FROM customers c
+ CROSS JOIN products p
+ ORDER BY c.first_name; 
+ -- IMPLICIT CROSS JOIN
+ SELECT c.first_name AS customer, p.name AS product
+ FROM customers c, products p
+ ORDER BY c.first_name;
+
+        
 
 
 
